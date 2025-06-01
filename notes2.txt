@@ -1,0 +1,42 @@
+Episode 2 
+
+1. Server
+A server is a remote computer that provides data, services, or resources to clients over a network. Clients send requests to the server's IP address, and the server responds accordingly.
+
+2. IP Address
+An IP (Internet Protocol) address is a unique identifier assigned to each device connected to a network. It facilitates the routing of data between clients and servers.
+
+Private IP: Used within local networks (e.g., 192.168.x.x).
+
+Public IP: Assigned by your Internet Service Provider (ISP) and used for communication over the internet.
+
+3. V8 Engine
+The V8 engine is Google's open-source, high-performance JavaScript and WebAssembly engine, written in C++. It compiles JavaScript into machine code, enabling efficient execution. V8 can be embedded into any C++ application, allowing developers to run JavaScript outside the browser environment.
+
+4. Node.js
+Node.js is a JavaScript runtime built on Chrome's V8 JavaScript engine. It allows developers to execute JavaScript code server-side, enabling the development of scalable network applications. Node.js provides additional APIs for file system access, networking, and more, extending JavaScript's capabilities beyond the browser.
+
+5. ECMAScript
+ECMAScript is the standardized specification that JavaScript adheres to. It ensures consistency across different JavaScript engines like V8, SpiderMonkey, and JavaScriptCore.
+
+6. JavaScript Runtime
+A JavaScript runtime combines a JavaScript engine (like V8) with additional APIs to provide a complete environment for executing JavaScript code. For instance, Node.js includes V8 and adds APIs for server-side functionalities.
+
+7. Low-Level Code
+Machine Language: Binary code (0s and 1s) directly executed by the CPU.
+
+Assembly Language: A human-readable representation of machine code, closely tied to the hardware's instruction set.
+
+🧩 How These Concepts Interconnect
+V8 Engine: Compiles and executes JavaScript code efficiently.
+
+Node.js: Utilizes the V8 engine to run JavaScript on the server-side, providing additional APIs for extended functionalities.
+
+ECMAScript: The standard that ensures JavaScript code behaves consistently across different environments.
+
+JavaScript Runtime: The combination of a JavaScript engine and additional APIs, forming a complete environment for executing JavaScript code.
+
+IP Addresses: Facilitate communication between clients and servers over a network.
+
+Servers: Machines that respond to client requests, often utilizing runtimes like Node.js to handle operations.
+

@@ -2,7 +2,8 @@
 
 Episode 1 :-
 
-Definition: JavaScript runtime built on Chrome’s V8 engine, enabling JavaScript outside the browser (servers, desktops, embedded). Event‑driven, non‑blocking I/O.
+Definition: JavaScript runtime built on Chrome’s V8 engine, enabling JavaScript outside the browser (servers, desktops, embedded).
+ Event‑driven, non‑blocking I/O.
 
 2009: Created by Ryan Dahl. Initially tried SpiderMonkey, switched to V8 for speed.
 
@@ -23,9 +24,6 @@ Name Change: Originally “Web.js,” renamed to “Node.js” to reflect broade
 2019: Node.js Foundation merges with JS Foundation to create the OpenJS Foundation, now overseeing Node.js and related projects.
 
 Today (mid‑2025): Actively maintained by the OpenJS Foundation; LTS releases on even‑numbered versions; npm registry hosts millions of packages; widely used in web services and microservices.
-
-
------  Episode 2 -----
 
 
 
