@@ -1,0 +1,16 @@
+-------------------------- Episode 3 notes ---------------------------
+
+Understanding Global Objects in Node.js => globalThis
+Global Object in Browsers: In web browsers, the global object is window.
+Contentful
+
+Global Object in Node.js: In Node.js, the global object is global. Variables declared with var at the top level become properties of the global object. 
+MDN Web Docs
+
+globalThis: Introduced in ECMAScript 2020, globalThis provides a standard way to access the global object across different environments (browsers, Node.js, etc.).
+
+
+-------------------------- Episode 4 notes ---------------------------
+
+
+
