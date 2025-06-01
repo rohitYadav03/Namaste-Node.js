@@ -1,0 +1,32 @@
+ ------------------------------------- Namaste Node.js ---------------------------------
+
+Episode 1 :-
+
+Definition: JavaScript runtime built on Chrome’s V8 engine, enabling JavaScript outside the browser (servers, desktops, embedded). Event‑driven, non‑blocking I/O.
+
+2009: Created by Ryan Dahl. Initially tried SpiderMonkey, switched to V8 for speed.
+
+Joyent: Hired Dahl shortly after release; provided funding and infrastructure.
+
+Name Change: Originally “Web.js,” renamed to “Node.js” to reflect broader use beyond web servers.
+
+2010 (Jan): npm launched by Isaac Schlueter—standardized module sharing and dependency management.
+
+2011 (July): First official Windows build (previously Linux/macOS only).
+
+2012: Dahl steps back; Isaac Schlueter becomes project lead under Joyent’s sponsorship.
+
+2014 (Dec): io.js fork emerges, seeking faster V8 upgrades and open governance.
+
+2015 (Feb–Sep): Node.js Foundation formed; io.js and Node.js merge into Node v4.0.0 under unified governance.
+
+2019: Node.js Foundation merges with JS Foundation to create the OpenJS Foundation, now overseeing Node.js and related projects.
+
+Today (mid‑2025): Actively maintained by the OpenJS Foundation; LTS releases on even‑numbered versions; npm registry hosts millions of packages; widely used in web services and microservices.
+
+
+-----  Episode 2 -----
+
+
+
+
