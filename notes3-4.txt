@@ -12,5 +12,53 @@ globalThis: Introduced in ECMAScript 2020, globalThis provides a standard way to
 
 -------------------------- Episode 4 notes ---------------------------
 
+🔧 Modules in Node.js
+Definition: Modules are individual files containing reusable code.
+Purpose: They help organize code into manageable sections, especially in large projects.
+Creation: Each .js file is treated as a separate module.
 
+📥 Importing Modules with require()
+Function: require() is used to include modules in your code.
+
+Usage: const moduleName = require('./moduleName');
+Note: If the required module doesn't export anything, require() will return an empty object.
+
+📤 Exporting from Modules with module.exports
+Purpose: To make functions, objects, or variables available to other modules.
+
+Single Export: module.exports = functionName;
+
+Multiple Exports: module.exports = { functionOne, functionTwo };
+
+Alternative Syntax:
+module.exports.functionOne = functionOne;
+module.exports.functionTwo = functionTwo;
+
+
+🧠 CommonJS (CJS) vs. ES Modules (ESM)
+Feature	    CommonJS (CJS)	             ES Modules (ESM)
+Syntax	    require() / module.exports	 import / export
+Loading	    Synchronous	                 Asynchronous
+Strict Mode	Non-strict by default	     Strict mode enforced
+File Extension	.js	.mjs or              .js with "type": "module" in package.json
+Top-level  await	Not supported	          Supported
+
+📁 Organizing Modules
+Nested Modules: Group related modules in a folder (e.g., calculate/).
+
+Index File: Use index.js to aggregate exports:
+// calculate/index.js
+const sum = require('./sum');
+const multiply = require('./multiply');
+module.exports = { sum, multiply };
+
+📄 Importing JSON Files
+Usage: You can import JSON files directly:
+const data = require('./data.json');
+
+🛠️ Built-in Modules
+
+Example: Node.js provides built-in modules like util:
+
+const util = require('node:util');
 
