@@ -1,0 +1,67 @@
+📘 Episode 06: libuv & Async I/O – Concise Notes
+
+🧠 1. JavaScript & Threading
+
+Thread = Smallest unit of execution in a process.
+JS is single-threaded: One call stack, one line at a time.
+Unlike multi-threaded languages (Java, C++), JS cannot do parallel execution natively.
+
+🔄 2. Synchronous vs Asynchronous
+Synchronous	          Asynchronous
+One task at a time	  Multiple tasks can run independently
+Blocking	          Non-blocking
+Line-by-line execution	Callback-based/delayed execution
+JS is synchronous by default	Node.js enables async behavior using libuv
+
+⚙️ 3. JS Engine Internals
+Memory Heap: Stores variables, functions.
+Call Stack: Executes functions in order.
+Garbage Collector: Frees unused memory (automatic in JS).
+
+🧾 4. Code Execution Steps
+Global Execution Context (GEC) created.
+Memory Phase: Variables initialized (undefined), functions stored.
+
+Execution Phase:
+Executes code line-by-line.
+
+Function call creates a new Execution Context (pushed on call stack).
+After return, it's popped off.
+
+⚡ 5. How Async Code Works in Node.js
+JS engine can’t handle async I/O alone.
+Node.js uses libuv (written in C++) to handle:
+
+File system access
+Timers (like setTimeout)
+Network requests
+
+libuv registers the task & callback → keeps working in the background.
+When the task is done, callback is pushed to the event loop queue.
+
+🦸‍♂️ 6. libuv – The Superhero
+What libuv does:
+
+Provides an event loop
+Handles non-blocking I/O
+Manages a thread pool for expensive ops (e.g., file reading)
+
+Talks to the Operating System
+
+🔁 7. What Happens During Async Execution
+JS Engine detects async task → hands it to libuv.
+
+libuv:
+Registers it in its event loop.
+Offloads the work to background (thread pool/OS).
+Keeps executing other sync JS code without waiting.
+Once async task finishes → callback added to event queue → executed after call stack is empty.
+
+✅ Summary
+JS = Single-threaded & synchronous.
+
+Node.js + libuv = Makes JS capable of non-blocking async I/O.
+
+libuv = Handles all the heavy async tasks behind the scenes.
+
+This architecture makes Node.js fast and scalable, especially for I/O-heavy apps.
