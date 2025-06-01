@@ -1,0 +1,23 @@
+-------------------------------- Episode 5 --------------------------------------
+
+Module Scope & IIFE
+
+Every Node.js file is automatically wrapped in an Immediately Invoked Function Expression (IIFE).
+This wrapper gives each module its own private scope—variables/functions inside cannot be seen outside.
+Inside the wrapper, Node provides five parameters: exports, require, module, __filename, and __dirname.
+
+Exporting & Importing
+To share something, you assign it to module.exports (or exports by shorthand).
+Anything not attached to module.exports stays private.
+When another file does require('./someModule'), Node returns that module’s module.exports.
+
+How require() Works (Five Steps)
+Resolve: Determine the exact file path (checks .js, .json, node_modules, etc.).
+
+Load: Read the file content (parse JSON or read JavaScript text).
+
+Wrap: Enclose the code in an IIFE so it has its own scope.
+
+Evaluate: Run the code inside that wrapper; whatever was set on module.exports becomes the exported API.
+
+Cache: Store the resulting module.exports under the resolved filename. Future require() calls for the same path return the cached object immediately.
