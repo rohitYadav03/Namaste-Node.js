@@ -33,29 +33,23 @@ console.log("multiplication result is :", c);
 
 // 🔁 Synchronous Execution Begins (Handled by V8 Engine)
 // console.log("hello world");
-
 // Executes immediately → Printed to console.
 
 // var a = 1078698; and var b = 20986;
-
 // Stored in memory heap.
 
 // Synchronous assignments.
 
 // 🌐 Asynchronous Operation 1 – https.get(...)
 // Detected by V8 as async.
-
 // Offloaded to Libuv.
-
 // Libuv uses OS-level threads or networking system to make HTTP request.
 
 // Meanwhile, JS engine continues without waiting.
 
 // ⏱️ Asynchronous Operation 2 – setTimeout(...)
 // Also async.
-
 // Libuv sets up a timer in background.
-
 // Callback is registered in Event Loop.
 
 // 📂 Asynchronous Operation 3 – fs.readFile(...)

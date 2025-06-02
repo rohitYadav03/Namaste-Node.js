@@ -1,0 +1,44 @@
+✅ What is the Event Queue?
+When we say “event queue” in the context of setTimeout(0), we are specifically referring to the:
+
+🟦 Macrotask Queue (also called Task Queue)
+
+🧠 JavaScript has Two Main Queues:
+Queue Name	Examples	Priority
+Microtask Queue	Promise.then(), catch(), async/await, queueMicrotask()	🥇 Higher
+Macrotask Queue	setTimeout(), setInterval(), setImmediate() (Node.js)	🥈 Lower
+
+📌 What Happens with setTimeout(0)?
+
+console.log("Start");
+
+setTimeout(() => {
+  console.log("setTimeout 0");
+}, 0);
+
+Promise.resolve().then(() => {
+  console.log("Microtask");
+});
+
+console.log("End");
+🧾 Output:
+
+Start
+End
+Microtask
+setTimeout 0
+
+🔄 Explanation:
+Synchronous code runs first (Start, then End).
+
+Promise.then() goes to the Microtask Queue → runs after the sync code finishes.
+
+setTimeout(0) goes to the Macrotask Queue → runs after all microtasks finish.
+
+📌 Summary:
+setTimeout(0) does not go to the Microtask Queue.
+
+It goes to the Macrotask Queue, which is also called the Event Queue.
+
+Microtasks are handled before macrotasks every time the call stack is clear.
+
