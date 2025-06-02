@@ -1,0 +1,83 @@
+🧵 Thread Pool in Node.js (via libuv) – Notes
+🔧 What is libuv?
+A C library used by Node.js to handle asynchronous operations under the hood.
+
+Manages file I/O, DNS, cryptography, etc.
+
+Uses a thread pool to offload time-consuming tasks.
+
+🧵 What is a Thread Pool?
+A group of background threads that handle async tasks.
+
+Default size: 4 threads.
+
+Think of it like 4 background workers handling heavy jobs.
+
+🚀 Why Use a Thread Pool?
+Node.js is single-threaded for JavaScript.
+
+Blocking tasks (e.g., reading a file) would freeze the app.
+
+Instead, Node.js delegates these tasks to libuv's thread pool, keeping JS responsive.
+
+🔁 Which Tasks Use the Thread Pool?
+File system operations (fs.readFile, fs.writeFile, etc.)
+
+Cryptographic functions (crypto.pbkdf2, bcrypt, etc.)
+
+DNS lookups (dns.lookup)
+
+🧪 Example Scenario
+
+const fs = require('fs');
+
+for (let i = 0; i < 5; i++) {
+  fs.readFile('file.txt', 'utf8', () => {
+    console.log(`Done reading ${i}`);
+  });
+}
+4 threads start reading immediately.
+
+The 5th task waits until a thread becomes free.
+
+⚙️ Controlling Thread Pool Size
+✅ Set via environment variable:
+UV_THREADPOOL_SIZE=8 node app.js
+✅ Or in code:
+
+process.env.UV_THREADPOOL_SIZE = 8;
+❓ Are HTTP API Requests Using Thread Pool?
+No, network operations do not use the thread pool.
+
+Instead, they use OS-level mechanisms like:
+
+epoll (Linux)
+
+kqueue (macOS)
+
+These allow efficient handling of many sockets without using threads.
+
+📂 File Descriptors vs. Socket Descriptors
+File Descriptor (FD): Identifier for open files/sockets.
+
+Socket Descriptor: Special FD used for network communication.
+
+🔊 Bonus Concepts
+📣 EventEmitter
+Allows event-driven programming in Node.js.
+
+.on() – Listen to events
+
+.emit() – Trigger events
+
+💧 Streams
+Handle data in chunks.
+
+Efficient for large files or continuous input/output.
+
+🧊 Buffers
+Used to manage binary data (e.g., from files or network).
+
+🔗 Pipes
+Connect readable and writable streams for seamless data flow.
+
