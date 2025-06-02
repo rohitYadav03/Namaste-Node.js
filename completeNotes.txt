@@ -25,6 +25,45 @@ Ignition interprets AST → bytecode
 TurboFan (JIT) optimizes hot bytecode → machine code
 
 If assumptions break, V8 deoptimizes and returns to bytecode, then may re-optimize later.
-
 Optimize your code by keeping data types consistent and understanding that V8 is always watching which parts run most and tuning them on the fly.
 
+libuv & Event Loop :-
+
+🎯 The Big Picture
+Node.js is single-threaded but handles async tasks via libuv without blocking.
+libuv = Event Loop + Thread Pools + Callback Queues
+
+🏆 Callback Priority (Most Important!)
+Remember: SYNC → MICRO → TIMER → IO → CHECK → CLOSE
+1. 🔥 SYNCHRONOUS CODE        (runs immediately)
+2. ⚡ MICROTASKS              (highest priority)
+   - process.nextTick()       (runs first)
+   - Promise.then/catch       (runs after nextTick)
+3. ⏰ TIMERS                  (setTimeout, setInterval)
+4. 📁 I/O OPERATIONS          (fs.readFile, network)
+5. ✅ CHECK                   (setImmediate)
+6. ❌ CLOSE CALLBACKS         (socket.close)
+
+🔄 Event Loop Phases
+Each loop cycle:
+
+Process Microtasks → Empty nextTick + Promise queues
+Timers Phase → Run expired setTimeout/setInterval
+Poll Phase → Handle I/O callbacks (file reads, etc.)
+Check Phase → Run setImmediate callbacks
+Close Phase → Handle cleanup callbacks
+Repeat until nothing left
+
+⚡ Key Rules
+🥇 process.nextTick() is KING
+Runs before everything else (even Promises)
+Can "starve" other operations if overused
+
+🥈 Promise.then() is 2nd
+Runs after all nextTick but before timers
+
+🥉 setTimeout(fn, 0) ≠ Immediate
+Still waits for sync code + microtasks to finish
+
+🏅 setImmediate() runs after I/O
+Good for running code after file operations

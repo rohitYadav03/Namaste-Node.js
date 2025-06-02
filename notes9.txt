@@ -1,0 +1,201 @@
+# Episode 09: libuv & Event Loop - Complete Study Notes
+
+## 🎯 Introduction to libuv
+
+**What is libuv?**
+- Core C library powering Node.js asynchronous operations
+- Handles event loop, callback queues, and thread pools
+- Enables non-blocking I/O despite JavaScript being single-threaded
+- Manages tasks like: file system operations, DNS lookups, network requests
+
+**Key Point**: libuv allows Node.js to perform asynchronous operations while maintaining the single-threaded nature of JavaScript.
+
+---
+
+## 🔄 Event Loop Architecture
+
+### Main Components:
+
+1. **Call Stack**: Where JavaScript code executes
+2. **Callback Queues**: Storage for completed async operations
+3. **Event Loop**: Monitors call stack and processes queues
+4. **Thread Pool**: Handles CPU-intensive tasks
+
+### How it Works:
+```
+JavaScript Code → V8 Engine → libuv (async tasks) → OS
+                    ↓
+                Call Stack ← Event Loop ← Callback Queues
+```
+
+---
+
+## 📋 Event Loop Phases (The Big 4)
+
+### 1. **Timers Phase**
+- **Purpose**: Execute `setTimeout()` and `setInterval()` callbacks
+- **When**: Checks if timer has expired
+- **Example**: `setTimeout(() => console.log("Timer!"), 0)`
+
+### 2. **Poll Phase** ⭐ (Most Important)
+- **Purpose**: Handle I/O callbacks
+- **Operations**: File reads, network requests, database queries
+- **Example**: `fs.readFile()` callbacks execute here
+- **Special**: If no callbacks, event loop waits here for new events
+
+### 3. **Check Phase**
+- **Purpose**: Execute `setImmediate()` callbacks
+- **Timing**: Runs immediately after Poll phase
+- **Example**: `setImmediate(() => console.log("Immediate!"))`
+
+### 4. **Close Callbacks Phase**
+- **Purpose**: Handle cleanup operations
+- **Operations**: Socket closures, resource cleanup
+- **Example**: `socket.on('close', callback)`
+
+---
+
+## ⚡ Microtasks - The VIP Queue
+
+**Before each phase, microtasks are processed first!**
+
+### Priority Order:
+1. **`process.nextTick()`** - Highest priority
+2. **Promise callbacks** - `.then()`, `.catch()`, `.finally()`
+
+```javascript
+// Microtasks always run before the next phase
+process.nextTick(() => console.log("Next tick!"));
+Promise.resolve().then(() => console.log("Promise!"));
+setTimeout(() => console.log("Timer!"), 0);
+
+// Output: Next tick! → Promise! → Timer!
+```
+
+---
+
+## 📊 Execution Order Summary
+
+### The Complete Priority Chain:
+```
+1. Synchronous Code (runs immediately)
+2. Microtasks:
+   - process.nextTick() callbacks
+   - Promise callbacks
+3. Timers Phase (setTimeout, setInterval)
+4. I/O Callbacks Phase
+5. Check Phase (setImmediate)
+6. Close Callbacks Phase
+```
+
+---
+
+## 💡 Code Example Walkthroughs
+
+### Example 1: Basic Event Loop
+```javascript
+const a = 100;
+setImmediate(() => console.log("setImmediate"));
+fs.readFile("file.txt", () => console.log("File Reading CB"));
+setTimeout(() => console.log("Timer expired"), 0);
+console.log("a=", a);
+console.log("Last line of the file.");
+```
+
+**Output:**
+```
+a= 100
+Last line of the file.
+Timer expired
+setImmediate
+File Reading CB
+```
+
+### Example 2: With Microtasks
+```javascript
+setImmediate(() => console.log("setImmediate"));
+Promise.resolve("promise").then(console.log);
+setTimeout(() => console.log("Timer expired"), 0);
+process.nextTick(() => console.log("Process.nextTick"));
+console.log("Last line of the file.");
+```
+
+**Output:**
+```
+Last line of the file.
+Process.nextTick
+promise
+Timer expired
+setImmediate
+File Reading CB
+```
+
+---
+
+## 🔧 Important Concepts
+
+### Nested process.nextTick()
+- Inner `process.nextTick()` has higher priority than outer one
+- Can cause "starvation" if overused
+
+### Event Loop Waiting
+- When no tasks remain, event loop waits in Poll phase
+- Listens for new I/O events
+- Keeps Node.js process alive
+
+### Non-blocking Nature
+- Even if async operations complete quickly, they wait in queues
+- Ensures main thread isn't blocked
+- V8 can continue executing other code
+
+---
+
+## 🎪 Advanced Example Analysis
+
+### Complex Nested Operations:
+```javascript
+fs.readFile("file.txt", () => {
+    setTimeout(() => console.log("2nd timer"), 0);
+    process.nextTick(() => console.log("2nd nextTick"));
+    setImmediate(() => console.log("2nd setImmediate"));
+    console.log("File reading CB");
+});
+```
+
+**Key Learning**: Even within callbacks, the same priority rules apply!
+
+---
+
+## 📝 Key Takeaways
+
+1. **libuv manages all async operations** - It's the backbone of Node.js
+2. **Event loop has specific phases** - Each handles different operation types
+3. **Microtasks have highest priority** - Always processed before phases
+4. **Understanding execution order is crucial** - For debugging and optimization
+5. **Poll phase is most important** - Handles I/O operations
+6. **Event loop keeps Node.js alive** - Waits for events when idle
+
+---
+
+## 🔍 Debugging Tips
+
+- Use `console.log()` to trace execution order
+- Remember: synchronous code runs first, always
+- Microtasks can "jump the queue"
+- `setImmediate` vs `setTimeout(0)` - setImmediate runs after I/O events
+
+---
+
+## 🚀 Practical Applications
+
+**When to use each:**
+- **`setTimeout`**: Delay execution by specific time
+- **`setImmediate`**: Execute after I/O events
+- **`process.nextTick`**: Execute ASAP (use sparingly)
+- **Promises**: For async operations with better error handling
+
+**Performance Tip**: Avoid deep nesting of `process.nextTick()` as it can starve other operations!
+
+---
+
+*These notes cover the complete Episode 09 on libuv & Event Loop. Practice with the provided examples to master async execution in Node.js!*
