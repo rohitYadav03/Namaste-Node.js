@@ -1,0 +1,82 @@
+🔍 V8 JS Engine Deep Dive
+📌 1. Parsing Stage
+A Lexical Analysis
+Breaks code into tokens (basic units like keywords, operators, etc.)
+
+Example: var a = 10; → var, a, =, 10, ;
+
+Goal: Make the code manageable for analysis.
+
+B Tokenization
+Converts code into a list of tokens.
+
+Why? Easier for the engine to understand.
+
+🧠 2. Syntax Analysis & AST
+A Syntax Analysis
+Applies grammar rules to token list.
+
+Converts tokens into a tree structure.
+
+B Abstract Syntax Tree (AST)
+Tree-like structure showing code logic.
+
+Example for var a = 10;:
+
+VariableDeclaration
+
+→ Identifier (a)
+
+→ Literal (10)
+
+📌 Fun Fact:
+Syntax Errors occur when invalid tokens break AST generation.
+
+🏗️ 3. Interpreter & Compiler
+A Interpreted vs Compiled
+Interpreted: Executes line-by-line (e.g., Python)
+
+Compiled: Converts to machine code (e.g., C, C++)
+
+B JavaScript Nature
+JS is both interpreted & compiled:
+
+Ignition → Interpreter
+
+TurboFan → Just-In-Time (JIT) Compiler
+
+⚙️ 4. Bytecode & Execution
+A Ignition (Interpreter)
+Converts AST → Bytecode
+
+Executes bytecode line-by-line
+
+B TurboFan (JIT Compiler)
+Optimizes frequently used (hot) code
+
+Converts hot code → optimized machine code
+
+🔁 5. Hot Code Optimization
+Hot Code: Repeatedly executed code
+
+Assumptions made by TurboFan for optimization
+
+If input types change (e.g., number → string), it deoptimizes the code.
+
+Falls back to Ignition.
+
+📎 Techniques:
+Inline Caching: Caches property lookups
+
+Copy Elision: Avoids unnecessary object copies
+
+✅ Best Practice:
+Use consistent data types to avoid deoptimization.
+
+🧠 Summary
+Parsing → Tokenization → AST → Bytecode
+
+Ignition runs the code, TurboFan optimizes hot paths.
+
+Deoptimization happens when assumptions break.
+

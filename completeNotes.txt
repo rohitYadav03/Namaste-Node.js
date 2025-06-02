@@ -1,0 +1,30 @@
+📋 Super-Short Takeaways for Revision
+Node.js = JS runtime (V8 + extra APIs) ➔ event-driven, non-blocking I/O.
+
+Modules use require()/module.exports (CommonJS) or import/export (ESM) and each file is wrapped in its own scope by Node.
+
+require(): resolves path → loads file → wraps code → evaluates → caches result.
+
+Async I/O = Node hands tasks (file reads, network, timers) to libuv,
+ which runs them in the background; callbacks run later on the event loop.
+
+Event Loop:
+Call Stack (sync code)
+Microtask Queue (Promises, async/await)
+Macrotask Queue (timers like setTimeout)
+
+Macrotasks run only after microtasks and after the call stack is empty.
+
+Synchronous functions (anything ending in Sync) block the entire thread—avoid them in production.
+
+V8 Engine:
+
+Parse → tokens → AST
+Ignition interprets AST → bytecode
+
+TurboFan (JIT) optimizes hot bytecode → machine code
+
+If assumptions break, V8 deoptimizes and returns to bytecode, then may re-optimize later.
+
+Optimize your code by keeping data types consistent and understanding that V8 is always watching which parts run most and tuning them on the fly.
+
