@@ -1,0 +1,43 @@
+* **Database:** A system to store, organize, and retrieve data efficiently.
+
+* **Main Types:**
+
+  * **Relational (SQL):** Uses tables with fixed columns and rows (e.g., MySQL, PostgreSQL). Good for complex queries and transactions.
+  * **NoSQL:** Uses flexible, document-based (JSON-like) storage (e.g., MongoDB). Great for quickly changing data models and large-scale web apps.
+  * **In-Memory:** Stores data in RAM for ultra-fast access (e.g., Redis). Often used for caching or real-time tasks.
+  * **Distributed SQL:** Scales like NoSQL but with SQL features and ACID guarantees (e.g., CockroachDB).
+  * **Time-Series:** Optimized for timestamped data (e.g., InfluxDB), ideal for monitoring and IoT.
+  * **Object-Oriented:** Stores data as objects directly (e.g., db4o), useful when code already uses objects heavily.
+  * **Graph:** Models data as nodes and relationships (e.g., Neo4j), perfect for social networks or recommendation systems.
+  * **Hierarchical/Network (Legacy):** Uses tree or graph structures (e.g., IBM IMS, IDMS). Mostly found in older, high-performance systems.
+  * **Cloud-Managed:** Services that handle setup and scaling for you (e.g., Amazon RDS for MySQL/PostgreSQL).
+
+* **Relational (RDBMS) Key Points:**
+
+  * Data is in tables; tables connect via foreign keys.
+  * Follows Codd’s rules to ensure data integrity (ACID).
+  * Requires predefined schema (column definitions).
+
+* **NoSQL (Document) Key Points:**
+
+  * Data is in collections of documents (like JSON).
+  * Schemas are flexible—each document can differ.
+  * No need for joins; related data often embedded in one document.
+
+* **MySQL & PostgreSQL Origins:**
+
+  * **MySQL:** Created by Michael Widenius (named after his daughter “My”). Forked into MariaDB. Now owned by Oracle.
+  * **PostgreSQL:** Evolved from the Ingres project by Michael Stonebraker; uses SQL for relational queries.
+
+* **MongoDB & NoSQL Categories:**
+
+  * Founded by 10gen; “Mongo” means “humongous” (designed for big data).
+  * NoSQL types include document, key-value, graph, wide-column, and multi-model.
+
+* **RDBMS vs. NoSQL Comparison:**
+
+  * **Structure:** RDBMS uses strict tables; NoSQL uses flexible documents.
+  * **Schema:** RDBMS needs a fixed schema; NoSQL allows on-the-fly changes.
+  * **Queries:** RDBMS uses SQL; NoSQL has varied query methods (often JSON-based).
+  * **Scaling:** RDBMS scales vertically (bigger machines); NoSQL scales horizontally (more servers).
+  * **Use Cases:** RDBMS for complex transactions (e.g., banking); NoSQL for rapid development and large, varied datasets (e.g., content platforms).
